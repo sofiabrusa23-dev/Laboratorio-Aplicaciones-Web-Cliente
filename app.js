@@ -26,18 +26,22 @@ function renderizarProductos(products) {
 }
 
 function crearCard(product) {
-   return `
-    <section id="products">
-          <div class="card" style="width: 18rem;" href="#">
-            <img src="${product.image}" class="card-img-top" alt="${product.title}">
-            <div class="card-body">
-              <h5 class="card-title">${product.title}</h5>
-              <p class="card-text">${product.description}</p>
-              <p class="card-text"><strong>$${product.price}</strong></p>
-            </div>
-          </div>
-        </section>
-    `
+  return `
+    <article class="product-card">
+      <div class="product-card_image-contenedor">
+        <img src="${product.image}" alt="${product.title}" class="product-card_image">
+      </div>
+
+      <div class="product-card_content">
+        <h3 class="product-card_title">${product.title}</h3>
+
+        <div class="product-card_footer">
+          <p class="product-card_price">$${product.price}</p>
+          <button class="product-card_button">Ver más</button>
+        </div>
+      </div>
+    </article>
+  `;
 }
 
 inicializar();
