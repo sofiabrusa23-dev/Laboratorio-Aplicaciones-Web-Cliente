@@ -72,8 +72,7 @@ body {
 
 /* Contenedor general */
 .container {
-  width: 90%;
-  max-width: 1200px;
+  padding:0  4rem;
   margin: 0 auto;
 }
 
@@ -83,7 +82,6 @@ body {
 /* Contenedor de productos */
 .productos-container {
   min-height: 100vh;
-  padding: 32px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
   gap: 24px;
