@@ -39,7 +39,7 @@
         >
       </div>
 
-      <a href="#" class="cart-icon" aria-label="Carrito">
+      <a href="carrito.html" class="cart-icon" aria-label="Carrito">
         <img src="./src/Icons/carrito.svg" alt="Carrito de compras">
       </a>
 
@@ -55,6 +55,7 @@
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -90,9 +91,34 @@
         <section id="products" class="productos-container">
             <!-- Renderizarán los productos dinamicamente -->
         </section>
+        
+        <div class="modal-producto" id="modalProducto">
+          <div class="modal-producto_contenido">
+
+            <button class="modal-producto_cerrar" id="cerrarModal">×</button>
+
+            <div class="modal-producto_imagen-contenedor">
+              <img id="modalImagen" src="" alt="" class="modal-producto_imagen">
+            </div>
+
+            <div class="modal-producto_info">
+              <h2 id="modalTitulo" class="modal-producto_titulo"></h2>
+              <p id="modalCategoria" class="modal-producto_categoria"></p>
+              <p id="modalDescripcion" class="modal-producto_descripcion"></p>
+              <p id="modalPrecio" class="modal-producto_precio"></p>
+
+              <button class="modal-producto_boton">
+                Agregar al carrito
+              </button>
+            </div>
+
+          </div>
+        </div>
 
       </div>
     </main>
+
+
 
 
 </header>
