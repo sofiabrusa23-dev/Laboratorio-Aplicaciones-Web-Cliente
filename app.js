@@ -1,12 +1,17 @@
 const productsdiv = document.getElementById('products');
+const botonesCategoria = document.querySelectorAll(".filter-category");
+const botonesPrecio = document.querySelectorAll(".filter-price");
+
 let productos = [];
+let categoriaActual = "all";
+let ordenPrecio = "";
 
 // Función para inicializar la web
 async function inicializar() {
     const products = await traerProductos();
     productos = products; 
     renderizarProductos(products);
-    activarBotonesVerMas();
+    activarFiltros();
 
 }
 
@@ -20,11 +25,13 @@ async function traerProductos() {
 
 // Función para renderizar los productos y crear la card
 function renderizarProductos(products) {
+ productsdiv.innerHTML = "";
 
-    products.forEach(product => {
-        crearCard(product);
-        productsdiv.innerHTML += crearCard(product);
-    });
+  products.forEach(product => {
+    productsdiv.innerHTML += crearCard(product);
+  });
+
+  activarBotonesVerMas();
 
 }
 
@@ -65,7 +72,7 @@ function activarBotonesVerMas() {
 
 
 
-// funcion para abrir modal 
+// Funcion para abrir modal 
 function abrirModal(product) {
   const modal = document.getElementById("modalProducto");
 
@@ -97,6 +104,56 @@ document.getElementById("modalProducto").addEventListener("click", (event) => {
     cerrarModal();
   }
 });
+
+
+
+
+//  Funcion Filtros
+function activarFiltros() {
+  botonesCategoria.forEach(boton => {
+    boton.addEventListener("click", () => {
+      botonesCategoria.forEach(btn => btn.classList.remove("active"));
+      boton.classList.add("active");
+
+      categoriaActual = boton.dataset.category;
+      filtrarProductos();
+    });
+  });
+
+  botonesPrecio.forEach(boton => {
+    boton.addEventListener("click", () => {
+      botonesPrecio.forEach(btn => btn.classList.remove("active"));
+      boton.classList.add("active");
+
+      ordenPrecio = boton.dataset.order;
+      filtrarProductos();
+    });
+  });
+}
+
+function filtrarProductos() {
+  let productosFiltrados = [...productos];
+
+  if (categoriaActual !== "all") {
+    productosFiltrados = productosFiltrados.filter(product => {
+      return product.category === categoriaActual;
+    });
+  }
+
+  if (ordenPrecio === "menor") {
+    productosFiltrados.sort((a, b) => a.price - b.price);
+  }
+
+  if (ordenPrecio === "mayor") {
+    productosFiltrados.sort((a, b) => b.price - a.price);
+  }
+
+  renderizarProductos(productosFiltrados);
+}
+
+
+
+
 
 
 

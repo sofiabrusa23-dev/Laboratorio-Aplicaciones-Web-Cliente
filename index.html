@@ -88,8 +88,21 @@
         <h1>Todo lo que necesitás, en un solo lugar</h1>
         <p>Descubrí productos seleccionados, ofertas especiales y novedades para vos.</p>
 
+     <section class="filters">
+      <button class="filter-category active" data-category="all">Todas</button>
+      <button class="filter-category" data-category="electronics">Electrónica</button>
+      <button class="filter-category" data-category="men's clothing">Ropa Hombre</button>
+      <button class="filter-category" data-category="women's clothing">Ropa Mujer</button>
+      <button class="filter-category" data-category="jewelery">Joyería</button>
+
+      <button class="filter-price" data-order="menor">Menor precio</button>
+      <button class="filter-price" data-order="mayor">Mayor precio</button>
+    </section>
+
+      <section id="products" class="productos-container"></section>
+
         <section id="products" class="productos-container">
-            <!-- Renderizarán los productos dinamicamente -->
+          <!-- Renderizarán los productos dinamicamente -->
         </section>
         
         <div class="modal-producto" id="modalProducto">
