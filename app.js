@@ -1,10 +1,12 @@
 const productsdiv = document.getElementById('products');
 const botonesCategoria = document.querySelectorAll(".filter-category");
 const botonesPrecio = document.querySelectorAll(".filter-price");
+const searchInput = document.getElementById("searchInput");
 
 let productos = [];
 let categoriaActual = "all";
 let ordenPrecio = "";
+let busquedaActual = "";
 
 // Función para inicializar la web
 async function inicializar() {
@@ -12,6 +14,7 @@ async function inicializar() {
     productos = products; 
     renderizarProductos(products);
     activarFiltros();
+    activarBusqueda();
 
 }
 
@@ -140,6 +143,15 @@ function filtrarProductos() {
     });
   }
 
+   if (busquedaActual !== "") {
+    productosFiltrados = productosFiltrados.filter(product => {
+      return (
+        product.title.toLowerCase().includes(busquedaActual) ||
+        product.category.toLowerCase().includes(busquedaActual)
+      );
+    });
+  }
+
   if (ordenPrecio === "menor") {
     productosFiltrados.sort((a, b) => a.price - b.price);
   }
@@ -153,6 +165,14 @@ function filtrarProductos() {
 
 
 
+
+// Funcion Busqueda
+function activarBusqueda() {
+  searchInput.addEventListener("input", () => {
+    busquedaActual = searchInput.value.toLowerCase().trim();
+    filtrarProductos();
+  });
+}
 
 
 
