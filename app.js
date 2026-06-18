@@ -2,6 +2,7 @@ const productsdiv = document.getElementById('products');
 const botonesCategoria = document.querySelectorAll(".filter-category");
 const botonesPrecio = document.querySelectorAll(".filter-price");
 const searchInput = document.getElementById("searchInput");
+const STORAGE_KEY = "cart";
 
 let productos = [];
 let categoriaActual = "all";
@@ -10,6 +11,7 @@ let busquedaActual = "";
 
 // Función para inicializar la web
 async function inicializar() {
+    inicializarLocalStorage();
     const products = await traerProductos();
     productos = products; 
     renderizarProductos(products);
@@ -84,6 +86,7 @@ function abrirModal(product) {
   const modalCategoria = document.getElementById("modalCategoria");
   const modalDescripcion = document.getElementById("modalDescripcion");
   const modalPrecio = document.getElementById("modalPrecio");
+  const botonAgregar = document.querySelector(".modal-producto_boton");
 
   modalImagen.src = product.image;
   modalImagen.alt = product.title;
@@ -91,6 +94,13 @@ function abrirModal(product) {
   modalCategoria.textContent = product.category;
   modalDescripcion.textContent = product.description;
   modalPrecio.textContent = `$${product.price}`;
+
+  botonAgregar.onclick = () => {
+    GuardarEnLocalStorage(product);
+    
+
+    alert("Producto agregado al carrito");
+  };
 
   modal.classList.add("modal-producto_activo");
 }
@@ -172,6 +182,35 @@ function activarBusqueda() {
     busquedaActual = searchInput.value.toLowerCase().trim();
     filtrarProductos();
   });
+}
+
+// Local Storage
+
+function inicializarLocalStorage() {
+  if (!localStorage.getItem(STORAGE_KEY)) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+  }
+}
+
+function ObtenerDelLocalStorage() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY));
+}
+
+function GuardarEnLocalStorage(item) {
+  let cart = ObtenerDelLocalStorage();
+
+  const productoExistente = cart.find((producto) => producto.id === item.id);
+
+  if (productoExistente) {
+    productoExistente.quantity++;
+  } else {
+    cart.push({
+      ...item,
+      quantity: 1,
+    });
+  }
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
 }
 
 
