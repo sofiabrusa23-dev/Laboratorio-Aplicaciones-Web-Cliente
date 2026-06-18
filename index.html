@@ -44,8 +44,16 @@
         >
       </div>
 
-      <a href="carrito.html" class="cart-icon" aria-label="Carrito">
-        <img src="./src/Icons/carrito.svg" alt="Carrito de compras">
+      <a
+        href="#"
+        class="cart-icon position-relative"
+        aria-label="Carrito"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#carritoSidebar"
+      >
+        <img src="./src/Icons/carrito.svg" alt="Carrito de compras" />
+
+        <span id="cart-badge" class="cart-badge"> 0 </span>
       </a>
 
     </div>
@@ -135,6 +143,36 @@
 
       </div>
     </main>
+
+    <!-- Sidebar Carrito -->
+          <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="carritoSidebar"
+          >
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title">Lista de productos</h5>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+              ></button>
+            </div>
+
+            <div class="offcanvas-body">
+              <section id="cart-container"></section>
+
+              <hr />
+
+              <h5 id="total">Total: $0</h5>
+            </div>
+          <div class="offcanvas-footer d-flex justify-content-center align-items-center gap-3 py-3">
+            <button class="btn btn-dark">Finalizar Compra</button>
+            <button class="btn btn-dark">Vaciar Carrito</button>
+          </div>
+          </div>
+        
     
 <!-- Footer -->
   <footer class="footer">

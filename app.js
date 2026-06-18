@@ -2,6 +2,8 @@ const productsdiv = document.getElementById('products');
 const botonesCategoria = document.querySelectorAll(".filter-category");
 const botonesPrecio = document.querySelectorAll(".filter-price");
 const searchInput = document.getElementById("searchInput");
+const cartContainer = document.getElementById("cart-container");
+const total = document.getElementById("total");
 const STORAGE_KEY = "cart";
 
 let productos = [];
@@ -12,6 +14,7 @@ let busquedaActual = "";
 // Función para inicializar la web
 async function inicializar() {
     inicializarLocalStorage();
+    actualizarBadge();
     const products = await traerProductos();
     productos = products; 
     renderizarProductos(products);
@@ -97,8 +100,7 @@ function abrirModal(product) {
 
   botonAgregar.onclick = () => {
     GuardarEnLocalStorage(product);
-    
-
+    actualizarBadge();
     alert("Producto agregado al carrito");
   };
 
@@ -213,7 +215,133 @@ function GuardarEnLocalStorage(item) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
 }
 
+// Carrito
 
+function actualizarBadge() {
+  const cart = ObtenerDelLocalStorage();
+
+  let cantidad = 0;
+
+  cart.forEach((product) => {
+    cantidad += product.quantity;
+  });
+
+  document.getElementById("cart-badge").textContent = cantidad;
+}
+
+function renderCart() {
+  const cart = ObtenerDelLocalStorage();
+
+  cartContainer.innerHTML = "";
+
+  let totalCompra = 0;
+
+  if (cart.length === 0) {
+    cartContainer.innerHTML = `
+      <h3>Tu carrito está vacío 🛒</h3>
+    `;
+
+    total.textContent = "Total: $0";
+    return;
+  }
+
+  cart.forEach((product) => {
+    totalCompra += product.price * product.quantity;
+
+    cartContainer.innerHTML += `
+  <article class="cart-item">
+
+    <img src="${product.image}" alt="${product.title}">
+
+    <div class="cart-item-info">
+
+      <h3 class="cart-item-title">
+        ${product.title}
+      </h3>
+
+      <div class="cart-quantity">
+
+        <button
+          onclick="disminuirCantidad(${product.id})"
+          ${product.quantity === 1 ? "disabled" : ""}
+        >
+          -
+        </button>
+
+        <span>
+          ${product.quantity}
+        </span>
+
+        <button
+          onclick="aumentarCantidad(${product.id})"
+        >
+          +
+        </button>
+
+      </div>
+
+      <p class="cart-item-subtotal">
+        $${(product.price * product.quantity).toFixed(2)}
+      </p>
+
+      <button
+        class="btn-delete"
+        onclick="eliminarProducto(${product.id})"
+      >
+        Eliminar
+      </button>
+
+    </div>
+
+  </article>
+`;
+  });
+
+  total.textContent = `Total: $${totalCompra.toFixed(2)}`;
+}
+
+function eliminarProducto(id) {
+  let cart = ObtenerDelLocalStorage();
+
+  cart = cart.filter((p) => p.id !== id);
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+
+  actualizarBadge();
+  renderCart();
+}
+
+function aumentarCantidad(id) {
+  const cart = ObtenerDelLocalStorage();
+
+  const producto = cart.find((p) => p.id === id);
+
+  producto.quantity++;
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+
+  actualizarBadge();
+  renderCart();
+}
+
+function disminuirCantidad(id) {
+  const cart = ObtenerDelLocalStorage();
+
+  const producto = cart.find((p) => p.id === id);
+
+  if (producto.quantity > 1) {
+    producto.quantity--;
+  }
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+
+  actualizarBadge();
+  renderCart();
+}
+
+document
+  .getElementById("carritoSidebar")
+  .addEventListener("show.bs.offcanvas", renderCart);
 
 
 inicializar();
