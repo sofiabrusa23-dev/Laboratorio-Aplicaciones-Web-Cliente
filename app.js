@@ -15,6 +15,7 @@ let busquedaActual = "";
 async function inicializar() {
     inicializarLocalStorage();
     actualizarBadge();
+    actualizarEstadoBotones();
     const products = await traerProductos();
     productos = products; 
     renderizarProductos(products);
@@ -110,6 +111,20 @@ function abrirModal(product) {
 function cerrarModal() {
   const modal = document.getElementById("modalProducto");
   modal.classList.remove("modal-producto_activo");
+}
+
+function actualizarEstadoBotones() {
+  const cart = ObtenerDelLocalStorage();
+
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  const clearCartBtn = document.getElementById("clearCartBtn");
+
+  if (!checkoutBtn || !clearCartBtn) return;
+
+  const estaVacio = cart.length === 0;
+
+  checkoutBtn.disabled = estaVacio;
+  clearCartBtn.disabled = estaVacio;
 }
 
 document.getElementById("cerrarModal").addEventListener("click", cerrarModal);
@@ -242,6 +257,7 @@ function renderCart() {
     `;
 
     total.textContent = "Total: $0";
+    actualizarEstadoBotones();
     return;
   }
 
@@ -298,6 +314,8 @@ function renderCart() {
   });
 
   total.textContent = `Total: $${totalCompra.toFixed(2)}`;
+
+  actualizarEstadoBotones();
 }
 
 function eliminarProducto(id) {
