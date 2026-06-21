@@ -163,10 +163,16 @@ function activarFiltros() {
 
   botonesPrecio.forEach(boton => {
     boton.addEventListener("click", () => {
+      const yaEstabaActivo = boton.classList.contains("active");
       botonesPrecio.forEach(btn => btn.classList.remove("active"));
-      boton.classList.add("active");
+      
+      if (yaEstabaActivo) {
+        ordenPrecio = "";
+      } else {
+        boton.classList.add("active");
+        ordenPrecio = boton.dataset.order;
+      }
 
-      ordenPrecio = boton.dataset.order;
       filtrarProductos();
     });
   });
