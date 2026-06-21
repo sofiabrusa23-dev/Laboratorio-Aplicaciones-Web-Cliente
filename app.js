@@ -7,6 +7,7 @@ const clearCartBtn = document.getElementById("clearCartBtn");
 const checkoutBtn = document.getElementById("checkoutBtn");
 const total = document.getElementById("total");
 const STORAGE_KEY = "cart";
+const verCarritoBtn = document.getElementById("verCarritoBtn");
 
 let productos = [];
 let categoriaActual = "all";
@@ -137,6 +138,14 @@ document.getElementById("modalProducto").addEventListener("click", (event) => {
   }
 });
 
+
+// Funcion mostar carrito modal 
+verCarritoBtn.addEventListener("click", () => {
+  const carritoSidebar = document.getElementById("carritoSidebar");
+  const offcanvas = new bootstrap.Offcanvas(carritoSidebar);
+  offcanvas.show();
+}
+);
 
 
 
@@ -397,6 +406,10 @@ function vaciarCarrito() {
 document
   .getElementById("carritoSidebar")
   .addEventListener("show.bs.offcanvas", renderCart);
+
+
+
+
 
 
 inicializar();

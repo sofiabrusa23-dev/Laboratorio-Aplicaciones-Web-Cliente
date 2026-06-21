@@ -17,6 +17,14 @@ body {
 }
 
 /* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .search-box {
   width: 360px;
   padding: 10px 16px;
@@ -286,6 +294,11 @@ body {
   margin-bottom: 24px;
 }
 
+.modal-producto_botones{
+  display: flex;
+  gap: 16px;
+}
+
 .modal-producto_boton {
   width: fit-content;
   padding: 12px 22px;
@@ -299,8 +312,12 @@ body {
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+.modal-producto_boton:nth-of-type(2) {
+  background-color: #c7c7c7;
+  color: #111827;
+}
+
 .modal-producto_boton:hover {
-  background-color: #000000;
   transform: scale(1.04);
 }
 
