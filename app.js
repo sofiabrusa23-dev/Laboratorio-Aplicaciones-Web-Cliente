@@ -101,7 +101,7 @@ function abrirModal(product) {
   botonAgregar.onclick = () => {
     GuardarEnLocalStorage(product);
     actualizarBadge();
-    alert("Producto agregado al carrito");
+    mostrarToast();
   };
 
   modal.classList.add("modal-producto_activo");
@@ -337,6 +337,16 @@ function disminuirCantidad(id) {
 
   actualizarBadge();
   renderCart();
+}
+
+function mostrarToast() {
+  const toastElement = document.getElementById("cartToast");
+
+  const toast = new bootstrap.Toast(toastElement, {
+    delay: 2000
+  });
+
+  toast.show();
 }
 
 document
