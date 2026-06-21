@@ -14,6 +14,21 @@ let categoriaActual = "all";
 let ordenPrecio = "";
 let busquedaActual = "";
 
+
+
+
+// Sweet Alert
+function alert(title, text, icon) {
+  Swal.fire({
+    title: title,
+    text: text,
+    icon: icon,
+    draggable: true
+  });
+}
+
+
+
 // Función para inicializar la web
 async function inicializar() {
     inicializarLocalStorage();
@@ -106,6 +121,7 @@ function abrirModal(product) {
     GuardarEnLocalStorage(product);
     actualizarBadge();
     mostrarToast();
+    cerrarModal();
   };
 
   modal.classList.add("modal-producto_activo");
@@ -399,14 +415,17 @@ function finalizarCompra() {
   actualizarBadge();
   renderCart();
 
-  alert("Compra realizada con éxito");
+  alert("¡Compra realizada!", "Gracias por su compra. Esperamos que disfrutes tus productos.", "success");
+
 }
+
 
 function vaciarCarrito() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
 
   actualizarBadge();
   renderCart();
+  alert("Carrito vaciado", "Tu carrito ha sido vaciado.", "info");
 }
 
 document
