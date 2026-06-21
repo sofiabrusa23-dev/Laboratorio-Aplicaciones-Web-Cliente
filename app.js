@@ -3,6 +3,8 @@ const botonesCategoria = document.querySelectorAll(".filter-category");
 const botonesPrecio = document.querySelectorAll(".filter-price");
 const searchInput = document.getElementById("searchInput");
 const cartContainer = document.getElementById("cart-container");
+const clearCartBtn = document.getElementById("clearCartBtn");
+const checkoutBtn = document.getElementById("checkoutBtn");
 const total = document.getElementById("total");
 const STORAGE_KEY = "cart";
 
@@ -210,7 +212,7 @@ function inicializarLocalStorage() {
 }
 
 function ObtenerDelLocalStorage() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY));
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 }
 
 function GuardarEnLocalStorage(item) {
@@ -365,6 +367,31 @@ function mostrarToast() {
   });
 
   toast.show();
+}
+
+if (clearCartBtn) {
+  clearCartBtn.addEventListener("click", vaciarCarrito);
+}
+
+if (checkoutBtn) {
+  checkoutBtn.addEventListener("click", finalizarCompra);
+}
+
+function finalizarCompra() {
+  const cart = ObtenerDelLocalStorage();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+
+  actualizarBadge();
+  renderCart();
+
+  alert("Compra realizada con éxito");
+}
+
+function vaciarCarrito() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+
+  actualizarBadge();
+  renderCart();
 }
 
 document
