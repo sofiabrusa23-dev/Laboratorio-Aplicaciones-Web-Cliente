@@ -86,8 +86,8 @@ body {
 
 /* Carrousel */
 .carousel-item img {
-  height: 500px;
-  object-fit:none;
+  height: 100%;
+  object-fit:cover;
 }
 
 /* Contenedor de productos */
